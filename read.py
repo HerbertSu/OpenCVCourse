@@ -1,17 +1,13 @@
 import cv2 as cv
 
-# img = cv.imread('Photos/cat_large.jpg')
+img = cv.imread('Photos/cat_large.jpg')
+cv.imshow('Cat', img)
 
-# cv.imshow('Cat', img)
+def rescaleFrame(frame, scale=0.75):
+    width = int(frame.shape[1]) & scale
+    height = (frame.shape[0]) & scale
+    dimensions = (width, height)
 
-capture = cv.VideoCapture('Videos/dog.mp4')
+    return cv.resize(frame, dimensions, interpolation=cv.INTER_AREA)
 
-while True:
-    isTrue, frame = capture.read()
-    cv.imshow('Video', frame)
-
-    if cv.waitKey(20) & 0xFF==ord('d'):
-        break
-
-capture.release()
 cv.waitKey(0)
