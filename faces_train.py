@@ -1,9 +1,10 @@
-import os 
+import os
 import cv2 as cv
 import numpy as np
 
 people = ['Ben Afflek', 'Elton John', 'Jerry Seinfield', 'Madonna', 'Mindy Kaling']
-DIR = r'C:\Users\herbe\Projects\OpenCV_course\Faces\train'
+dir_path = os.path.dirname(os.path.realpath(__file__))
+DIR = f'{dir_path}\\Faces\\train'
 haar_cascade = cv.CascadeClassifier('haar_face.xml')
 
 features = []
@@ -13,7 +14,7 @@ def create_train():
     for person in people:
         path = os.path.join(DIR, person)
         label = people.index(person)
-        
+
         for img in os.listdir(path):
             img_path = os.path.join(path, img)
 
@@ -36,5 +37,6 @@ face_recognizer = cv.face.LBPHFaceRecognizer_create()
 # Train the Recognizer on the features list and the labels list
 face_recognizer.train(features, labels)
 
+face_recognizer.save('face_trained.yml')
 np.save('features.npy', features)
 np.save('labels.npy', labels)
